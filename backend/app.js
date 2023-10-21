@@ -10,6 +10,9 @@ dotenv.config({ path : 'backend/config/config.env'});
 
 connectDatabase()
 
+// meddleware
+app.use(express.json())
+
 
 // import all routes
 import productRoutes from "./routes/products.js"

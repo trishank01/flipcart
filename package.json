@@ -1,0 +1,27 @@
+{
+  "name": "flipcart",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "one step online shoping solution",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trishank01/flipcart.git"
+  },
+  "author": "Trishank khatri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trishank01/flipcart/issues"
+  },
+  "homepage": "https://github.com/trishank01/flipcart#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.6.3",
+    "nodemon": "^3.0.1"
+  }
+}

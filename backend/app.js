@@ -3,6 +3,7 @@ const app = express()
 import dotenv from "dotenv"
 import { connectDatabase } from './config/dbConnect.js';
 import errorsMiddleware from './middlewares/errors.js';
+import cookieParser from "cookie-parser"
 
 
 
@@ -22,6 +23,7 @@ connectDatabase()
 
 // meddleware
 app.use(express.json())
+app.use(cookieParser())
 
 
 // import all routes

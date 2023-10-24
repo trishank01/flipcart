@@ -54,7 +54,7 @@ userSchema.methods.getJwtToken = function () {
 
 //Compare user password
 
-userSchema.methods.comarePassword = async function (enteredPassword) {
+userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 

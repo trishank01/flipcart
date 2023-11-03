@@ -18,7 +18,7 @@ const ProductItem = ({ prd }) => {
           <div className="ratings mt-auto d-flex">
             <div className="star-ratings">
               <StarRatings
-                rating={prd?.ratings}
+                rating={prd?.rating}
                 starRatedColor="#ffb829"
               
                 numberOfStars={5}

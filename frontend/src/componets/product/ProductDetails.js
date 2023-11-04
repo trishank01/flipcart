@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import { useGetProductDetailsQuery } from "../../redux/api/ProductsApi";
 import { useParams } from "react-router-dom";
@@ -20,6 +21,7 @@ const ProductDetails = () => {
     }
   }, [isError]);
 
+  
   if (isLoading) return <Loader />;
 
   const handleImageClick = (index) => {
@@ -41,7 +43,8 @@ const ProductDetails = () => {
         <div className="row justify-content-start mt-5">
           {product?.images?.map((img , index) => (
             <div className="col-2 ms-4 mt-2">
-              <a role="button" onClick={() => handleImageClick(index)}>
+            
+              <a  role="button"   onClick={() => handleImageClick(index)}>
                 <img
                   className={`d-block border rounded p-3 cursor-pointer ${index === activeImg ? "border-warning" : ""}`}
                   height="100"

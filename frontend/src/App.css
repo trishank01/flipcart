@@ -181,6 +181,10 @@ footer {
   margin-top: 9rem;
 }
 
+.img-gallery{
+  border: none;
+}
+
 /* Loader */
 .loader {
   display: block;

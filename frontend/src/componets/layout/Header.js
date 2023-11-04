@@ -1,4 +1,5 @@
 import React from 'react'
+import Search from './Search'
 
 const Header = () => {
   return (
@@ -10,24 +11,11 @@ const Header = () => {
           </a>
         </div>
       </div>
-      <div className="col-12 col-md-6 mt-2 mt-md-0">
-        <form action="your_search_action_url_here" method="get">
-          <div className="input-group">
-            <input
-              type="text"
-              id="search_field"
-              aria-describedby="search_btn"
-              className="form-control"
-              placeholder="Enter Product Name ..."
-              name="keyword"
-              value=""
-            />
-            <button id="search_btn" className="btn" type="submit">
-              <i className="fa fa-search" aria-hidden="true"></i>
-            </button>
-          </div>
-        </form>
-      </div>
+
+
+   <div className="col-12 col-md-6 mt-2 mt-md-0">
+   <Search/>
+    </div>
       <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
         <a href="/cart" style={{textDecoration: 'none'}}>
           <span id="cart" className="ms-3"> Cart </span>

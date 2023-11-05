@@ -5,6 +5,7 @@ import Footer from "./componets/layout/Footer";
 import Header from "./componets/layout/Header";
 import {Toaster} from "react-hot-toast"
 import ProductDetails from "./componets/product/ProductDetails";
+import Login from "./componets/auth/Login";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/product/:id" element={<ProductDetails/>} />
+            <Route path="/login" element={<Login/>} />
           </Routes>
         </div>
         <Footer />

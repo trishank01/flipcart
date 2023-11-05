@@ -1,5 +1,6 @@
 import React from 'react'
 import Search from './Search'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
@@ -50,7 +51,7 @@ const Header = () => {
           </div>
         </div>
 
-        <a href="/login" className="btn ms-4" id="login_btn"> Login </a>
+        <Link to="/login" className="btn ms-4" id="login_btn"> Login </Link>
       </div>
     </nav>
   )

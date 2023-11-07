@@ -24,11 +24,11 @@ dotenv.config({ path: "backend/config/config.env" });
 //Connecting to Database
 connectDatabase();
 
-// meddleware
+// middleware
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
-app.use(errorsMiddleware);
+
 
 
 // All Routes
@@ -40,6 +40,9 @@ app.use("/api/v1/", (req, res) => {
   res.send(htmlContent);
 });
 
+
+// Using error middleware
+app.use(errorsMiddleware);
 
 
 

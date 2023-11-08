@@ -11,7 +11,6 @@ const Login = () => {
   useEffect(() => {
     if (error) {
       toast.error(error?.data?.message);
-      console.log(error)
     }
   }, [error]);
 
@@ -23,6 +22,7 @@ const Login = () => {
     };
     login(loginData);
   };
+  console.log("login" , data)
   return (
     <div className="row wrapper">
       <div className="col-10 col-lg-5">

@@ -10,9 +10,9 @@ const Register = () => {
   });
 
   const { name, email, password } = user;
-  const [register, { isLoading, error, data }] = useRegisterMutation();
+  const [register, { isLoading, error  }] = useRegisterMutation();
 
-  console.log("data" , data)
+
 
   useEffect(() => {
     if (error) {
@@ -24,6 +24,7 @@ const Register = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     const signUpData = {
+      name,
       email,
       password,
     };

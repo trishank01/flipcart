@@ -1,14 +1,20 @@
 import React from "react";
 import Search from "./Search";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGetMeQuery } from "../../redux/api/userApi";
 import { useSelector } from "react-redux";
-
+import { useLazyLogoutQuery } from "../../redux/api/authApi";
 
 const Header = () => {
+  const navigate = useNavigate();
   const { isLoading } = useGetMeQuery();
+  const [logout] = useLazyLogoutQuery();
   const { user } = useSelector((state) => state.auth);
-  console.log("user" , user)
+
+  const logoutHandler = () => {
+    logout();
+    navigate(0);
+  };
 
   return (
     <nav className="navbar row">
@@ -17,7 +23,7 @@ const Header = () => {
           <a href="/">
             <img
               className="logo"
-              src="/images/FlipCart_logo.png"
+              src={user?.avatar ? user?.avatar?.url : `/images/FlipCart_logo.png`}
               alt="FlipCart"
             />
           </a>
@@ -59,25 +65,29 @@ const Header = () => {
               className="dropdown-menu w-100"
               aria-labelledby="dropDownMenuButton"
             >
-              <a className="dropdown-item" href="/admin/dashboard">
+              <Link className="dropdown-item" to="/admin/dashboard">
                 {" "}
                 Dashboard{" "}
-              </a>
+              </Link>
 
-              <a className="dropdown-item" href="/me/orders">
+              <Link className="dropdown-item" to="/me/orders">
                 {" "}
                 Orders{" "}
-              </a>
+              </Link>
 
-              <a className="dropdown-item" href="/me/profile">
+              <Link className="dropdown-item" to="/me/profile">
                 {" "}
                 Profile{" "}
-              </a>
+              </Link>
 
-              <a className="dropdown-item text-danger" href="/">
+              <Link
+                className="dropdown-item text-danger"
+                to="/"
+                onClick={logoutHandler}
+              >
                 {" "}
                 Logout{" "}
-              </a>
+              </Link>
             </div>
           </div>
         ) : (

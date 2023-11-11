@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useLoginMutation } from "../../redux/api/authApi";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useGetMeQuery } from "../../redux/api/userApi";
+import { useSelector } from "react-redux";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [login, { isloading, error, data }] = useLoginMutation();
+  const navigate = useNavigate()
+
+  const {isAuthenticated} = useSelector((state) => state.auth)
 
   useEffect(() => {
+    if(isAuthenticated){
+      navigate("/")
+    }
     if (error) {
       toast.error(error?.data?.message);
     }
-  }, [error]);
+  }, [error , isAuthenticated]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -22,7 +30,6 @@ const Login = () => {
     };
     login(loginData);
   };
-  console.log("login" , data)
   return (
     <div className="row wrapper">
       <div className="col-10 col-lg-5">

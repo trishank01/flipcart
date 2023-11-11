@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useRegisterMutation } from "../../redux/api/authApi";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -10,16 +12,19 @@ const Register = () => {
   });
 
   const { name, email, password } = user;
-  const [register, { isLoading, error  }] = useRegisterMutation();
+  const [register, { isLoading, error }] = useRegisterMutation();
+  const navigate = useNavigate();
 
-
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
     if (error) {
       toast.error(error?.data?.message);
-      
     }
-  }, [error]);
+  }, [error, isAuthenticated]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -37,10 +42,7 @@ const Register = () => {
   return (
     <div className="row wrapper">
       <div className="col-10 col-lg-5">
-        <form
-          className="shadow rounded bg-body"
-          onSubmit={submitHandler}
-        >
+        <form className="shadow rounded bg-body" onSubmit={submitHandler}>
           <h2 className="mb-4">Register</h2>
 
           <div className="mb-3">

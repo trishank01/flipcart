@@ -23,7 +23,7 @@ const Header = () => {
           <a href="/">
             <img
               className="logo"
-              src={user?.avatar ? user?.avatar?.url : `/images/FlipCart_logo.png`}
+              src={`/images/FlipCart_logo.png`}
               alt="FlipCart"
             />
           </a>
@@ -54,7 +54,7 @@ const Header = () => {
             >
               <figure className="avatar avatar-nav">
                 <img
-                  src="/images/default_avatar.jpg"
+                  src={user?.avatar ? user?.avatar?.url : `/images/default_avatar.jpg`}
                   alt="User Avatar"
                   className="rounded-circle"
                 />

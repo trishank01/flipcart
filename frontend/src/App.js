@@ -10,8 +10,10 @@ import Register from "./componets/auth/Register";
 import Profile from "./componets/user/Profile";
 import UpdateProfile from "./componets/user/UpdateProfile";
 import ProtectedRoute from "./componets/auth/ProtectedRoute";
+import UploadAvatar from "./componets/user/UploadAvatar";
 
 function App() {
+  
   return (
     <Router>
       <div className="App">
@@ -31,11 +33,23 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/me/update_profile" element={
-              <ProtectedRoute>
-             <UpdateProfile />
-            </ProtectedRoute>
-           } />
+            <Route
+              path="/me/update_profile"
+              element={
+                <ProtectedRoute>
+                  <UpdateProfile />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/me/upload_avatar"
+              element={
+                <ProtectedRoute>
+                  <UploadAvatar />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </div>
         <Footer />

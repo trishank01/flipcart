@@ -13,7 +13,9 @@ const Header = () => {
 
   const logoutHandler = () => {
     logout();
-    navigate(0);
+    setTimeout(() => {
+      navigate(0)
+    },300)
   };
 
   return (

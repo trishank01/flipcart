@@ -5,15 +5,18 @@ import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import Loader from "../layout/Loader";
 import StarRatings from "react-star-ratings";
+import { useDispatch } from "react-redux";
+import { setCartItem } from "../../redux/features/cartSlice";
 
 const ProductDetails = () => {
   const params = useParams();
-  const [activeImg , setActiveImg] = useState(0)
+  const dispatch = useDispatch()
+  const [activeImg, setActiveImg] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const { data, isLoading, error, isError } = useGetProductDetailsQuery(
     params?.id
   );
   const product = data?.product;
-
 
   useEffect(() => {
     if (isError) {
@@ -21,12 +24,44 @@ const ProductDetails = () => {
     }
   }, [isError]);
 
-  
-  if (isLoading) return <Loader />;
+
 
   const handleImageClick = (index) => {
-    setActiveImg(index)
-  }
+    setActiveImg(index);
+  };
+
+ 
+
+  const increaseQty = () => {
+    const count = document.querySelector(".count")
+    if(count.valueAsNumber >= product?.stock)  return
+    const qty = count.valueAsNumber + 1
+    setQuantity(qty)
+
+   }
+  
+   const decreseQty = () => {
+    const count = document.querySelector(".count")
+     if(count.valueAsNumber <= 1)  return
+     const qty = count.valueAsNumber - 1
+     setQuantity(qty)
+
+    }
+
+    const setItemToCart = () => {
+      const cartItem = {
+        product : product?._id , 
+        name : product?.name,
+        price : product?.price,
+        image : product?.images[0]?.url,
+        stock : product?.stock,
+        quantity 
+      }
+      dispatch(setCartItem(cartItem))
+      toast.success("Item Added to Cart")
+    }
+
+    if (isLoading) return <Loader />;
 
   return (
     <div className="row d-flex justify-content-around">
@@ -41,12 +76,13 @@ const ProductDetails = () => {
           />
         </div>
         <div className="row justify-content-start mt-5">
-          {product?.images?.map((img , index) => (
+          {product?.images?.map((img, index) => (
             <div className="col-2 ms-4 mt-2">
-            
-              <a  role="button"   onClick={() => handleImageClick(index)}>
+              <a role="button" onClick={() => handleImageClick(index)}>
                 <img
-                  className={`d-block border rounded p-3 cursor-pointer ${index === activeImg ? "border-warning" : ""}`}
+                  className={`d-block border rounded p-3 cursor-pointer ${
+                    index === activeImg ? "border-warning" : ""
+                  }`}
                   height="100"
                   width="100"
                   src={img?.url}
@@ -84,20 +120,31 @@ const ProductDetails = () => {
 
         <p id="product_price">${product.price}</p>
         <div className="stockCounter d-inline">
-          <span className="btn btn-danger minus">-</span>
+          <button
+            className="btn btn-danger minus"
+            onClick={decreseQty}
+          >
+            -
+          </button>
           <input
             type="number"
             className="form-control count d-inline"
-            value="1"
+            value={quantity}
             readonly
           />
-          <span className="btn btn-primary plus">+</span>
+          <span
+            className="btn btn-primary plus"
+            onClick={increaseQty}
+          >
+            +
+          </span>
         </div>
         <button
           type="button"
           id="cart_btn"
           className="btn btn-primary d-inline ms-4"
-          disabled=""
+          disabled={product?.stock <= 0}
+          onClick={setItemToCart}
         >
           Add to Cart
         </button>

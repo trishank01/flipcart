@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { json } from "react-router-dom";
 
 const initialState = {
-  cartItem: localStorage.getItem("cartItems")
+  cartItems: localStorage.getItem("cartItems")
     ? JSON.parse(localStorage.getItem("cartItems"))
     : [],
 };
@@ -13,21 +12,29 @@ export const cartSlice = createSlice({
   reducers: {
     setCartItem: (state, action) => {
       const item = action.payload;
-      const isItemExist = state.cartItem.find(
+      const isItemExist = state.cartItems.find(
         (i) => i.product === item.product
       );
       if (isItemExist) {
-        state.cartItem = state.cartItem.map((i) =>
+        state.cartItems = state.cartItems.map((i) =>
           i.product === isItemExist.product ? item : i
         );
       } else {
-        state.cartItem = [...state.cartItem, item];
+        state.cartItems = [...state.cartItems, item];
       }
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItem));
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+    removeCartItem : (state , action) => {
+      const filteredCartItem = state.cartItems.filter((item) => {
+        return item.product !== action.payload;
+      });
+      state.cartItems = filteredCartItem
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    }
   },
+
 });
 
 export default cartSlice.reducer;
 
-export const { setCartItem } = cartSlice.actions;
+export const { setCartItem , removeCartItem } = cartSlice.actions;

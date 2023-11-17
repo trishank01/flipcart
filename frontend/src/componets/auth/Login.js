@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useLoginMutation } from "../../redux/api/authApi";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import { useGetMeQuery } from "../../redux/api/userApi";
 import { useSelector } from "react-redux";
+import MetaData from "../layout/MetaData"
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -31,6 +31,9 @@ const Login = () => {
     login(loginData);
   };
   return (
+    <>
+       <MetaData title={"Login"}/>
+  
     <div className="row wrapper">
       <div className="col-10 col-lg-5">
         <form
@@ -89,6 +92,7 @@ const Login = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

@@ -8,6 +8,7 @@ import CustomPagination from "./layout/CustomPagination";
 import { useSearchParams } from "react-router-dom";
 import Filter from "./layout/Filter";
 
+
 const Home = () => {
   let [searchParams] = useSearchParams();
   const page = searchParams.get("page") || 1;

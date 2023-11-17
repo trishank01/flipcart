@@ -24,17 +24,16 @@ export const cartSlice = createSlice({
       }
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
-    removeCartItem : (state , action) => {
+    removeCartItem: (state, action) => {
       const filteredCartItem = state.cartItems.filter((item) => {
         return item.product !== action.payload;
       });
-      state.cartItems = filteredCartItem
+      state.cartItems = filteredCartItem;
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-    }
+    },
   },
-
 });
 
 export default cartSlice.reducer;
 
-export const { setCartItem , removeCartItem } = cartSlice.actions;
+export const { setCartItem, removeCartItem } = cartSlice.actions;

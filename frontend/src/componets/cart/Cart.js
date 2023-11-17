@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { FaTrash } from "react-icons/fa";
@@ -6,12 +6,23 @@ import { Link } from "react-router-dom";
 import { removeCartItem, setCartItem } from "../../redux/features/cartSlice";
 
 const Cart = () => {
+  const [cartTotal, setCartTotal] = useState(0);
   const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  console.log(cartItems);
+
+  useEffect(() => {
+    const SingleProductTotal = cartItems.map(
+      (item) => item.price * item.quantity
+    );
+    const total = SingleProductTotal.reduce((acc, item) => acc + item, 0);
+    setCartTotal(Number(total).toFixed(2));
+  }, [cartItems]);
 
   if (cartItems.length === 0) {
     return <h2>No Cart Item Found</h2>;
   }
+
   const increaseQty = (item, quantity) => {
     const newQty = quantity + 1;
     if (newQty >= item?.stock) return;
@@ -24,6 +35,7 @@ const Cart = () => {
     setItemToCart(item, newQty);
   };
 
+  //
   const setItemToCart = (item, newQty) => {
     const cartItem = {
       product: item?.product,
@@ -116,10 +128,15 @@ const Cart = () => {
             <h4>Order Summary</h4>
             <hr />
             <p>
-              Subtotal: <span className="order-summary-values">8 (Units)</span>
+              Units:{" "}
+              <span className="order-summary-values">
+                {cartItems?.reduce((acc, item) => acc + item?.quantity, 0)}{" "}
+                (Units)
+              </span>
             </p>
             <p>
-              Est. total: <span className="order-summary-values">$1499.97</span>
+              Est. total:{" "}
+              <span className="order-summary-values">${cartTotal} </span>
             </p>
             <hr />
             <button id="checkout_btn" className="btn btn-primary w-100">

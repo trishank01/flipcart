@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { FaTrash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { removeCartItem, setCartItem } from "../../redux/features/cartSlice";
 
 const Cart = () => {
   const [cartTotal, setCartTotal] = useState(0);
   const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   console.log(cartItems);
 
   useEffect(() => {
@@ -51,6 +52,10 @@ const Cart = () => {
   const RemoveHandler = (id) => {
     dispatch(removeCartItem(id));
   };
+
+  const checkoutHandler = () => {
+    navigate("/shipping")
+  }
 
   return (
     <>
@@ -139,7 +144,7 @@ const Cart = () => {
               <span className="order-summary-values">${cartTotal} </span>
             </p>
             <hr />
-            <button id="checkout_btn" className="btn btn-primary w-100">
+            <button id="checkout_btn" onClick={checkoutHandler} className="btn btn-primary w-100">
               Check out
             </button>
           </div>
